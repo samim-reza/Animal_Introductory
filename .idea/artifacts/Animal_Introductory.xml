@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jpackage" name="Animal_Introductory">
+    <output-path>$PROJECT_DIR$/out/artifacts/Animal_Introductory</output-path>
+    <root id="root">
+      <element id="archive" name="Animal_Introductory.jar">
+        <element id="module-output" name="Animal_Introductory" />
+      </element>
+    </root>
+  </artifact>
+</component>

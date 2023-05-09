@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-abstract class Animal extends JFrame{
+abstract public class Animal extends JFrame{
     private String name="null";
     public void setName(String name)
     {
@@ -39,8 +39,6 @@ class Ant extends Animal{
     public void walk() {
         img = new ImageIcon("src/Animal/Ant/AntWalk.gif");
         imgLabel.setIcon(img);
-    
-    
     }
   
     @Override
@@ -53,4 +51,8 @@ class Ant extends Animal{
 
     }
 
+    public static void main(String[] args) {
+        Ant ant=new Ant();
+        ant.walk();
+    }
 }
