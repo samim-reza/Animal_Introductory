@@ -14,16 +14,13 @@ public class Pages extends JFrame implements MouseListener, ActionListener {
     private JButton prevButton;
     private JButton nextButton;
     private int subPanelIndex = 0, currentPanelIndex = 0;
-    private String[] animalName={"src/Animal/Ant/Ant.jpg","src/Animal/Bear/Bear.jpg","src/Animal/Cat/Cat.jpg","src/Animal/Dog/Dog.jpg","src/Animal/Elephant/Elephant.jpg","src/Animal/Fox/Fox.jpg","src/Animal/Giraffe/Giraffe.jpg","src/Animal/Horse/Horse.jpg","src/Animal/Ibis/Ibis.jpg","src/Animal/Jaguar/Jaguar.jpg","src/Animal/Kangaroo/Kangaroo.jpg","src/Animal/Lion/Lion.jpg","src/Animal/Monkey/Monkey.jpg","src/Animal/Needlefish/Needlefish.png","src/Animal/Ostrich/Ostrich.jpeg","src/Animal/Panda/Panda.jpg","src/Animal/Quail/Quail.jpg","src/Animal/Rabbit/Rabbit.jpg","src/Animal/Shark/Shark.jpg","src/Animal/Tiger/Tiger.jpg","src/Animal/Urial/Urial.jpg","src/Animal/Vulture/Vulture.jpg","src/Animal/Wolf/Wolf.jpg","src/Animal/Xerus/Xerus.jpg","src/Animal/Yalk/Yalk.jpg","src/Animal/Zebra/Zebra.jpg","src/Animal/Zebra/Zebra.jpg","src/Animal/Zebra/Zebra.jpg"};
+    private String[] animalName={"src/Animal/Ant/Ant.jpg","src/Animal/Bear/Bear.jpg","src/Animal/Cat/Cat.jpg","src/Animal/Dog/Dog.jpg","src/Animal/Elephant/Elephant.jpg","src/Animal/Fox/Fox.jpg","src/Animal/Giraffe/Giraffe.jpg","src/Animal/Horse/Horse.jpg","src/Animal/Ibis/Ibis.jpg","src/Animal/Jaguar/Jaguar.jpg","src/Animal/Kangaroo/Kangaroo.jpg","src/Animal/Lion/Lion.jpg","src/Animal/Monkey/Monkey.jpg","src/Animal/Needlefish/Needlefish.png","src/Animal/Ostrich/Ostrich.jpg","src/Animal/Panda/Panda.jpg","src/Animal/Quail/Quail.jpg","src/Animal/Rabbit/Rabbit.jpg","src/Animal/Shark/Shark.jpg","src/Animal/Tiger/Tiger.jpg","src/Animal/Urial/Urial.jpg","src/Animal/Vulture/Vulture.jpg","src/Animal/Wolf/Wolf.jpg","src/Animal/Xerus/Xerus.jpg","src/Animal/Yalk/Yalk.jpg","src/Animal/Zebra/Zebra.jpg","src/Animal/Zebra/Zebra.jpg","src/Animal/Zebra/Zebra.jpg"};
 
-    public Pages() {
-        init();
-    }
-    public void init() {
+    Pages(){
         c = getContentPane();
         setTitle("Animal Introductory");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800, 600);
+        setSize(900, 600);
         setLocationRelativeTo(null);
         setVisible(true);
         icon =new ImageIcon("src/Icon.jpg");
@@ -76,7 +73,6 @@ public class Pages extends JFrame implements MouseListener, ActionListener {
         c.add(buttonPanel, BorderLayout.SOUTH);
         mainPanel[currentPanelIndex].setVisible(true);
     }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == prevButton) {
@@ -101,25 +97,17 @@ public class Pages extends JFrame implements MouseListener, ActionListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if(e.getSource()==subPanels[0]) {
+        for(int subPanel=0; subPanel<subPanels.length; subPanel++){
+            if(e.getSource()==subPanels[subPanel]) {
+                mainPanel[currentPanelIndex].setVisible(false);
                 c.removeAll();
-                Test ant = new Test();
+                Test ant = new Test(subPanel);
                 c.add(ant.getContentPane());
                 c.revalidate();
                 c.repaint();
+                break;
             }
-        else if(e.getSource()==subPanels[1]) {
-            JOptionPane.showMessageDialog(null, "worked also 2");
         }
-        else if(e.getSource()==subPanels[2]) {
-            JOptionPane.showMessageDialog(null, "worked also 3");
-        }
-        else if(e.getSource()==subPanels[3]) {
-            JOptionPane.showMessageDialog(null, "worked also 4");
-        }
-    }
-    public static void main(String[] args) {
-        new Pages();
     }
     @Override
     public void mousePressed(MouseEvent e) {}

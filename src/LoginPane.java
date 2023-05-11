@@ -14,10 +14,9 @@ public class LoginPane extends JFrame {
         //setSize(300, 150);
         setTitle("Login Form");
 
-        // Create a panel with a GridBagLayout
+
         JPanel panel = new JPanel(new GridBagLayout());
 
-        // Create username and password labels and text fields
         usernameLabel = new JLabel("Username:");
         usernameTextField = new JTextField(20);
         passwordLabel = new JLabel("Password:");
@@ -26,7 +25,6 @@ public class LoginPane extends JFrame {
         logButton =new JButton("Login");
         clearButton =new JButton("Clear");
 
-        // Add the components to the panel
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.gridx = 0;
@@ -45,7 +43,6 @@ public class LoginPane extends JFrame {
         gbc.gridx=1;
         panel.add(clearButton, gbc);
 
-        // Center the panel and add it to the frame
         getContentPane().add(panel, BorderLayout.CENTER);
         setLocationRelativeTo(null);
     }
