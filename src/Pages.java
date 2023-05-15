@@ -3,24 +3,25 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Arrays;
 
-public class Pages extends JFrame implements MouseListener, ActionListener {
+public class Pages extends JFrame implements ActionListener {
     private Container c;
-    private JPanel[] subPanels = new JPanel[28];
-    private JPanel[] mainPanel = new JPanel[7];
-    private JPanel buttonPanel = new JPanel();
+    static JPanel[] mainPanel = new JPanel[7];
+    static JPanel[] subPanels = new JPanel[28];
+    static JPanel buttonPanel = new JPanel();
     private JLabel[] imgLabel=new JLabel[28];
     private ImageIcon[] img=new ImageIcon[28];
     private ImageIcon icon;
     private JButton prevButton;
     private JButton nextButton;
-    private int subPanelIndex = 0, currentPanelIndex = 0;
+    private int subPanelIndex = 0;
+    static int currentPanelIndex = 0;
     private String[] animalName={"src/Animal/Ant/Ant.jpg","src/Animal/Bear/Bear.jpg","src/Animal/Cat/Cat.jpg","src/Animal/Dog/Dog.jpg","src/Animal/Elephant/Elephant.jpg","src/Animal/Fox/Fox.jpg","src/Animal/Giraffe/Giraffe.jpg","src/Animal/Horse/Horse.jpg","src/Animal/Ibis/Ibis.jpg","src/Animal/Jaguar/Jaguar.jpg","src/Animal/Kangaroo/Kangaroo.jpg","src/Animal/Lion/Lion.jpg","src/Animal/Monkey/Monkey.jpg","src/Animal/Needlefish/Needlefish.png","src/Animal/Ostrich/Ostrich.jpg","src/Animal/Panda/Panda.jpg","src/Animal/Quail/Quail.jpg","src/Animal/Rabbit/Rabbit.jpg","src/Animal/Shark/Shark.jpg","src/Animal/Tiger/Tiger.jpg","src/Animal/Urial/Urial.jpg","src/Animal/Vulture/Vulture.jpg","src/Animal/Wolf/Wolf.jpg","src/Animal/Xerus/Xerus.jpg","src/Animal/Yalk/Yalk.jpg","src/Animal/Zebra/Zebra.jpg","src/Animal/Zebra/Zebra.jpg","src/Animal/Zebra/Zebra.jpg"};
 
-    Pages(){
+    Pages(int width, int height){
         c = getContentPane();
         setTitle("Animal Introductory");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(900, 600);
+        setSize(width, height);
         setLocationRelativeTo(null);
         setVisible(true);
         icon =new ImageIcon("src/Icon.jpg");
@@ -47,7 +48,7 @@ public class Pages extends JFrame implements MouseListener, ActionListener {
                 subPanels[subPanelIndex].setBackground(Color.white);
                 subPanels[subPanelIndex].setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 subPanels[subPanelIndex].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-                subPanels[subPanelIndex].addMouseListener(this);
+                subPanels[subPanelIndex].setToolTipText("Click to expand");
                 subPanels[subPanelIndex].addComponentListener(new ComponentAdapter() {
                     @Override
                     public void componentResized(ComponentEvent e) {
@@ -59,6 +60,21 @@ public class Pages extends JFrame implements MouseListener, ActionListener {
                             int index = Arrays.asList(subPanels).indexOf(panel);
                             ImageIcon resizedImg = new ImageIcon(img[index].getImage().getScaledInstance(panelWidth, panelHeight, Image.SCALE_SMOOTH));
                             imgLabel[index].setIcon(resizedImg);
+                        }
+                    }
+                });
+                subPanels[subPanelIndex].addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        for(int subPanel=0; subPanel<subPanels.length; subPanel++){
+                            if(e.getSource()==subPanels[subPanel]) {
+                                c.removeAll();
+                                Test test = new Test(subPanel);
+                                c.add(test.getContentPane());
+                                c.revalidate();
+                                c.repaint();
+                                break;
+                            }
                         }
                     }
                 });
@@ -76,45 +92,33 @@ public class Pages extends JFrame implements MouseListener, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == prevButton) {
-            mainPanel[currentPanelIndex].setVisible(false);
             currentPanelIndex--;
             if (currentPanelIndex < 0) {
                 currentPanelIndex = mainPanel.length - 1;
             }
-            mainPanel[currentPanelIndex].setVisible(true);
-            c.add(mainPanel[currentPanelIndex], BorderLayout.CENTER);
+            getContentPane().removeAll();
+            getContentPane().add(mainPanel[currentPanelIndex], BorderLayout.CENTER);
+            getContentPane().add(buttonPanel, BorderLayout.SOUTH);
+            getContentPane().revalidate();
+            getContentPane().repaint();
         }
         else if (e.getSource() == nextButton) {
-            mainPanel[currentPanelIndex].setVisible(false);
+//            mainPanel[currentPanelIndex].setVisible(false);
+//            currentPanelIndex++;
+//            if (currentPanelIndex >= mainPanel.length) {
+//                currentPanelIndex = 0;
+//            }
+//            mainPanel[currentPanelIndex].setVisible(true);
+//            c.add(mainPanel[currentPanelIndex], BorderLayout.CENTER);
             currentPanelIndex++;
             if (currentPanelIndex >= mainPanel.length) {
                 currentPanelIndex = 0;
             }
-            mainPanel[currentPanelIndex].setVisible(true);
-            c.add(mainPanel[currentPanelIndex], BorderLayout.CENTER);
+                getContentPane().removeAll();
+                getContentPane().add(mainPanel[currentPanelIndex], BorderLayout.CENTER);
+                getContentPane().add(buttonPanel, BorderLayout.SOUTH);
+                getContentPane().revalidate();
+                getContentPane().repaint();
         }
     }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        for(int subPanel=0; subPanel<subPanels.length; subPanel++){
-            if(e.getSource()==subPanels[subPanel]) {
-                mainPanel[currentPanelIndex].setVisible(false);
-                c.removeAll();
-                Test ant = new Test(subPanel);
-                c.add(ant.getContentPane());
-                c.revalidate();
-                c.repaint();
-                break;
-            }
-        }
-    }
-    @Override
-    public void mousePressed(MouseEvent e) {}
-    @Override
-    public void mouseReleased(MouseEvent e) {}
-    @Override
-    public void mouseEntered(MouseEvent e) {}
-    @Override
-    public void mouseExited(MouseEvent e) {}
 }

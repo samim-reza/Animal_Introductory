@@ -44,7 +44,6 @@ public class Test extends JFrame{
 
         subPanel = new BackgroundPanel(new ImageIcon("src/Icon.jpg").getImage());
         subPanel.setLayout(new GridBagLayout());
-        //subPanel.setPreferredSize(new Dimension(300, 200));
 
         img1 = new ImageIcon(animalName[i]);
         imgLabel1 = new JLabel(img1);
@@ -87,7 +86,7 @@ public class Test extends JFrame{
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         buttonPanel.setPreferredSize(new Dimension(300, 50));
         eatButton = new JButton("Eat");
-        walkButton = new JButton("Walk");
+        walkButton = new JButton("Move");
         backButton = new JButton("Back");
         buttonPanel.add(eatButton);
         buttonPanel.add(walkButton);
@@ -205,9 +204,12 @@ public class Test extends JFrame{
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                getContentPane().removeAll();
+                getContentPane().add(Pages.mainPanel[Pages.currentPanelIndex], BorderLayout.CENTER);
+                getContentPane().add(Pages.buttonPanel, BorderLayout.SOUTH);
+                getContentPane().revalidate();
+                getContentPane().repaint();
             }
         });
     }
-
 }

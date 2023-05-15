@@ -100,9 +100,9 @@ class Flyable extends Animal2 {
 class Test2 {
     String[] animalEat = { "src/Animal/Ant/AntEat.gif", "src/Animal/Bear/BearEat.gif", "src/Animal/Cat/CatEat.gif",
             "src/Animal/Dog/DogEat.gif", "src/Animal/Elephant/ElephantEat.gif", "src/Animal/Fox/FoxEat.gif",
-            "src/Animal/Giraffe/GiraffeEat.jpg", "src/Animal/Horse/HorseEat.gif", "src/Animal/Ibis/IbisEat.gif",
+            "src/Animal/Giraffe/GiraffeEat.gif", "src/Animal/Horse/HorseEat.gif", "src/Animal/Ibis/IbisEat.gif",
             "src/Animal/Jaguar/JaguarEat.gif", "src/Animal/Kangaroo/KangarooEat.gif", "src/Animal/Lion/LionEat.gif",
-            "src/Animal/Monkey/MonkeyEat.gif", "src/Animal/Needlefish/NeedlefishEat.gif",
+            "src/Animal/Monkey/MonkeyEat.gif", "src/Animal/Needlefish/NeddlefishEat.gif",
             "src/Animal/Ostrich/OstrichEat.gif", "src/Animal/Panda/PandaEat.gif", "src/Animal/Quail/QuailEat.gif",
             "src/Animal/Rabbit/RabbitEat.gif", "src/Animal/Shark/SharkEat.gif", "src/Animal/Tiger/TigerEat.gif",
             "src/Animal/Urial/UrialEat.gif", "src/Animal/Vulture/VultureEat.gif", "src/Animal/Wolf/WolfEat.gif",
@@ -110,9 +110,9 @@ class Test2 {
             "src/Animal/Zebra/ZebraEat.gif", "src/Animal/Zebra/ZebraEat.gif" };
     String[] animalWalk = { "src/Animal/Ant/AntWalk.gif", "src/Animal/Bear/BearWalk.gif", "src/Animal/Cat/CatWalk.gif",
             "src/Animal/Dog/DogWalk.gif", "src/Animal/Elephant/ElephantWalk.gif", "src/Animal/Fox/FoxWalk.gif",
-            "src/Animal/Giraffe/GiraffeWalk.jpg", "src/Animal/Horse/HorseWalk.gif", "src/Animal/Ibis/IbisFly.gif",
+            "src/Animal/Giraffe/GiraffeWalk.gif", "src/Animal/Horse/HorseWalk.gif", "src/Animal/Ibis/IbisFly.gif",
             "src/Animal/Jaguar/JaguarWalk.gif", "src/Animal/Kangaroo/KangarooWalk.gif", "src/Animal/Lion/LionWalk.gif",
-            "src/Animal/Monkey/MonkeyWalk.gif", "src/Animal/Needlefish/NeedlefishWalk.gif",
+            "src/Animal/Monkey/MonkeyWalk.gif", "src/Animal/Needlefish/NeddlefishSwim.gif",
             "src/Animal/Ostrich/OstrichWalk.gif", "src/Animal/Panda/PandaWalk.gif", "src/Animal/Quail/QuailWalk.gif",
             "src/Animal/Rabbit/RabbitWalk.gif", "src/Animal/Shark/SharkWalk.gif", "src/Animal/Tiger/TigerWalk.gif",
             "src/Animal/Urial/UrialWalk.gif", "src/Animal/Vulture/VultureWalk.gif", "src/Animal/Wolf/WolfWalk.gif",
