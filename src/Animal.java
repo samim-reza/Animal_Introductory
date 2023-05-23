@@ -1,5 +1,9 @@
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.ImageIcon;
+import java.awt.Container;
+import java.awt.BorderLayout;
 
 class Animal extends JFrame {
     protected Container c;
@@ -18,7 +22,6 @@ class Animal extends JFrame {
         this.eatImg = new ImageIcon(eatImg);
         this.eatLabel = new JLabel(this.eatImg);
         this.eatLabel.setBounds(0, 0, 400, 350);
-
     }
 
     public void setName(String name) {
@@ -30,6 +33,7 @@ class Animal extends JFrame {
     }
 
     public void eat() {
+
         mainPanel = new JPanel(new BorderLayout());
         mainPanel.add(eatLabel, BorderLayout.CENTER);
 
@@ -38,10 +42,12 @@ class Animal extends JFrame {
 }
 
 class Walkable extends Animal {
+
     protected JLabel walkLabel;
     protected ImageIcon walkImg;
 
     Walkable(String name, String eatImg, String walkImg) {
+
         super(name, eatImg);
 
         this.walkImg = new ImageIcon(walkImg);
@@ -50,6 +56,7 @@ class Walkable extends Animal {
     }
 
     public void walk() {
+        
         mainPanel = new JPanel(new BorderLayout());
         mainPanel.add(walkLabel, BorderLayout.CENTER);
 
@@ -58,6 +65,7 @@ class Walkable extends Animal {
 }
 
 class Swimmable extends Animal {
+
     protected JLabel swimLabel;
     protected ImageIcon swimImg;
 
@@ -78,6 +86,7 @@ class Swimmable extends Animal {
 }
 
 class Flyable extends Animal {
+
     protected JLabel flyLabel;
     protected ImageIcon flyImg;
 
@@ -105,7 +114,7 @@ class MakeAction {
             "src/Animal/Monkey/MonkeyEat.gif", "src/Animal/Needlefish/NeddlefishEat.gif",
             "src/Animal/Ostrich/OstrichEat.gif", "src/Animal/Panda/PandaEat.gif", "src/Animal/Quail/QuailEat.gif",
             "src/Animal/Rabbit/RabbitEat.gif", "src/Animal/Shark/SharkEat.gif", "src/Animal/Tiger/TigerEat.gif",
-            "src/Animal/Urial/UrialEat.gif", "src/Animal/Vulture/VultureEat.gif", "src/Animal/Wolf/WolfEat.gif",
+            "src/Animal/Urial/UrialEat.jpg", "src/Animal/Vulture/VultureEat.gif", "src/Animal/Wolf/WolfEat.gif",
             "src/Animal/Xerus/XerusEat.gif", "src/Animal/Yalk/YalkEat.gif", "src/Animal/Zebra/ZebraEat.gif",
             "src/Animal/Zebra/ZebraEat.gif", "src/Animal/Zebra/ZebraEat.gif" };
     String[] animalWalk = { "src/Animal/Ant/AntWalk.gif", "src/Animal/Bear/BearWalk.gif", "src/Animal/Cat/CatWalk.gif",
@@ -115,7 +124,7 @@ class MakeAction {
             "src/Animal/Monkey/MonkeyWalk.gif", "src/Animal/Needlefish/NeddlefishSwim.gif",
             "src/Animal/Ostrich/OstrichWalk.gif", "src/Animal/Panda/PandaWalk.gif", "src/Animal/Quail/QuailWalk.gif",
             "src/Animal/Rabbit/RabbitWalk.gif", "src/Animal/Shark/SharkSwim.gif", "src/Animal/Tiger/TigerWalk.gif",
-            "src/Animal/Urial/UrialWalk.gif", "src/Animal/Vulture/VultureWalk.gif", "src/Animal/Wolf/WolfWalk.gif",
+            "src/Animal/Urial/UrialWalk.jpg", "src/Animal/Vulture/VultureFly.gif", "src/Animal/Wolf/WolfWalk.gif",
             "src/Animal/Xerus/XerusWalk.gif", "src/Animal/Yalk/YalkWalk.gif", "src/Animal/Zebra/ZebraWalk.gif",
             "src/Animal/Zebra/ZebraEat.gif", "src/Animal/Zebra/ZebraEat.gif" };
 

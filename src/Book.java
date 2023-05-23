@@ -1,6 +1,23 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
+import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
+import java.awt.Cursor;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Color;
+import java.awt.Image;
+import java.awt.GridLayout;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Arrays;
 
 public class Book extends JFrame implements ActionListener {
@@ -14,7 +31,13 @@ public class Book extends JFrame implements ActionListener {
     private JButton nextButton;
     private int animalsIndex = 0;
     static int currentPageIndex = 0;
-    private String[] animalName={"src/Animal/Ant/Ant.jpg","src/Animal/Bear/Bear.jpg","src/Animal/Cat/Cat.jpg","src/Animal/Dog/Dog.jpg","src/Animal/Elephant/Elephant.jpg","src/Animal/Fox/Fox.jpg","src/Animal/Giraffe/Giraffe.jpg","src/Animal/Horse/Horse.jpg","src/Animal/Ibis/Ibis.jpg","src/Animal/Jaguar/Jaguar.jpg","src/Animal/Kangaroo/Kangaroo.jpg","src/Animal/Lion/Lion.jpg","src/Animal/Monkey/Monkey.jpg","src/Animal/Needlefish/Needlefish.png","src/Animal/Ostrich/Ostrich.jpg","src/Animal/Panda/Panda.jpg","src/Animal/Quail/Quail.jpg","src/Animal/Rabbit/Rabbit.jpg","src/Animal/Shark/Shark.jpg","src/Animal/Tiger/Tiger.jpg","src/Animal/Urial/Urial.jpg","src/Animal/Vulture/Vulture.jpg","src/Animal/Wolf/Wolf.jpg","src/Animal/Xerus/Xerus.jpg","src/Animal/Yalk/Yalk.jpg","src/Animal/Zebra/Zebra.jpg","src/Animal/Zebra/Zebra.jpg","src/Animal/Zebra/Zebra.jpg"};
+    private String[] animalName={"src/Animal/Ant/Ant.jpg","src/Animal/Bear/Bear.jpg","src/Animal/Cat/Cat.jpg","src/Animal/Dog/Dog.jpg",
+            "src/Animal/Elephant/Elephant.jpg","src/Animal/Fox/Fox.jpg","src/Animal/Giraffe/Giraffe.jpg","src/Animal/Horse/Horse.jpg",
+            "src/Animal/Ibis/Ibis.jpg","src/Animal/Jaguar/Jaguar.jpg","src/Animal/Kangaroo/Kangaroo.jpg","src/Animal/Lion/Lion.jpg",
+            "src/Animal/Monkey/Monkey.jpg","src/Animal/Needlefish/Needlefish.png","src/Animal/Ostrich/Ostrich.jpg","src/Animal/Panda/Panda.jpg",
+            "src/Animal/Quail/Quail.jpg","src/Animal/Rabbit/Rabbit.jpg","src/Animal/Shark/Shark.jpg","src/Animal/Tiger/Tiger.jpg",
+            "src/Animal/Urial/Urial.jpg","src/Animal/Vulture/Vulture.jpg","src/Animal/Wolf/Wolf.jpg","src/Animal/Xerus/Xerus.jpg",
+            "src/Animal/Yalk/Yalk.jpg","src/Animal/Zebra/Zebra.jpg","src/Animal/Account.jpg","src/Animal/Logout.jpg"};
 
     Book(int width, int height){
         setTitle("Animal Introductory");
@@ -65,8 +88,22 @@ public class Book extends JFrame implements ActionListener {
                 animals[animalsIndex].addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        for(int subPanel=0; subPanel<animals.length; subPanel++){
-                            if(e.getSource()==animals[subPanel]) {
+                        for(int subPanel=0; subPanel<28; subPanel++){
+                            if(e.getSource()==animals[26]) {
+                                getContentPane().removeAll();
+                                getContentPane().add(new UserProfile(getContentPane().getWidth(),getContentPane().getHeight()).getContentPane());
+                                getContentPane().revalidate();
+                                getContentPane().repaint();
+                                break;
+                            }
+                            else if(e.getSource()==animals[27]) {
+                                getContentPane().removeAll();
+                                getContentPane().add(new WelcomePage(getContentPane().getWidth(),getContentPane().getHeight()).getContentPane());
+                                getContentPane().revalidate();
+                                getContentPane().repaint();
+                                break;
+                            }
+                            else if(e.getSource()==animals[subPanel]) {
                                 getContentPane().removeAll();
                                 getContentPane().add(new DetailsPage(subPanel).getContentPane());
                                 getContentPane().revalidate();
@@ -102,13 +139,6 @@ public class Book extends JFrame implements ActionListener {
             getContentPane().repaint();
         }
         else if (e.getSource() == nextButton) {
-//            pages[currentPageIndex].setVisible(false);
-//            currentPageIndex++;
-//            if (currentPageIndex >= pages.length) {
-//                currentPageIndex = 0;
-//            }
-//            pages[currentPageIndex].setVisible(true);
-//            getContentPane().add(pages[currentPageIndex], BorderLayout.CENTER);
             currentPageIndex++;
             if (currentPageIndex >= pages.length) {
                 currentPageIndex = 0;

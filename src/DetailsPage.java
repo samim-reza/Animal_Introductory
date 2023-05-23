@@ -1,5 +1,19 @@
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
+import java.awt.Cursor;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Color;
+import java.awt.Image;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.FlowLayout;
+import java.awt.Insets;
+import java.awt.Graphics;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
@@ -24,7 +38,6 @@ public class DetailsPage extends JFrame{
                 }
             });
         }
-
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -32,7 +45,8 @@ public class DetailsPage extends JFrame{
         }
     }
     DetailsPage(int i) {
-        setTitle("Panel Example");
+
+        setTitle("Action Panel");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(900, 600);
         setMinimumSize(new Dimension(900,400));
@@ -68,6 +82,7 @@ public class DetailsPage extends JFrame{
                 }
             }
         });
+
         leftImagePanel.add(leftImgLabel);
 
         rightImagePanel = new JPanel();
