@@ -1,5 +1,6 @@
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -154,8 +155,22 @@ class changepassword extends JFrame{
     private JTextField prevPassField, newPassField, confirmPassField;
     private JButton confirm, back;
     private ImageIcon icon;
+    private Database db;
+    private ResultSet passResult;
+    private String userpassResultName;
 
     changepassword(int width, int height) {
+
+        db = new Database();
+
+        try {
+            passResult = db.getConnection().createStatement().executeQuery("Select Password from Userinfo where Email='"+LoginPane.checkMail+"'");
+            while(passResult.next()){
+                userpassResultName = passResult.getString("Password");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         setTitle("Password Change");
         setSize(width, height);
@@ -227,5 +242,48 @@ class changepassword extends JFrame{
 
         setContentPane(pane);
         setLocationRelativeTo(null);
+
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                getContentPane().removeAll();
+                getContentPane().add(new UserProfile(getContentPane().getWidth(),getContentPane().getHeight()).getContentPane());
+                getContentPane().revalidate();
+                getContentPane().repaint();
+            }
+        });
+
+        confirm.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String prevPass = prevPassField.getText();
+                String newPass = newPassField.getText();
+                String confirmPass = confirmPassField.getText();
+
+                if(!prevPass.equals(userpassResultName)){
+                    JOptionPane.showMessageDialog(null, "Old password doesn't match");
+                }
+                else
+                if(prevPass.equals("") || newPass.equals("") || confirmPass.equals("")){
+                    JOptionPane.showMessageDialog(null, "Please fill up all the fields");
+                }
+                else if(!newPass.equals(confirmPass)){
+                    JOptionPane.showMessageDialog(null, "New password and confirm password doesn't match");
+                }
+                else{
+                    try {
+                        db.getConnection().createStatement().executeUpdate("update Userinfo set Password='"+newPass+"' where Email='"+LoginPane.checkMail+"'");
+                        JOptionPane.showMessageDialog(null, "Password changed successfully");
+                        getContentPane().removeAll();
+                        getContentPane().add(new UserProfile(getContentPane().getWidth(),getContentPane().getHeight()).getContentPane());
+                        getContentPane().revalidate();
+                        getContentPane().repaint();
+                    } catch (SQLException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
+        });
+
     }
 }

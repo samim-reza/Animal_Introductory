@@ -20,9 +20,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
-class WelcomePage extends JFrame{
-    
-    private JLabel welcomeLabel;
+class WelcomePage extends JFrame {
+
+    private JLabel welcomeLabel, background;
     private JButton signIn, signUp;
     private ImageIcon icon;
 
@@ -33,6 +33,7 @@ class WelcomePage extends JFrame{
         setVisible(true);
         init();
     }
+
     WelcomePage(int width, int height) {
 
         setTitle("Welcome");
@@ -40,14 +41,14 @@ class WelcomePage extends JFrame{
         init();
     }
 
-    public void init(){
+    public void init() {
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new GridBagLayout());
-        icon =new ImageIcon("src/Icon.jpg");
+        icon = new ImageIcon("src/Icon.jpg");
         this.setIconImage(icon.getImage());
 
-        JLabel background = new JLabel(new ImageIcon("src/BackGroundImage/Cat.gif"));
+        background = new JLabel(new ImageIcon("src/BackGroundImage/Cat.gif"));
         background.setLayout(new GridBagLayout());
         setContentPane(background);
 
@@ -81,24 +82,24 @@ class WelcomePage extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                new LoginPane(getContentPane().getWidth(),getContentPane().getHeight());
+                new LoginPane(getContentPane().getWidth(), getContentPane().getHeight());
             }
         });
         signUp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                new CreateAccountPage(getContentPane().getWidth(),getContentPane().getHeight());
+                new CreateAccountPage(getContentPane().getWidth(), getContentPane().getHeight());
             }
         });
     }
 }
 
-class LoginPane extends JFrame implements ActionListener{
-    private Container c;
+class LoginPane extends JFrame implements ActionListener {
+
     private JLabel usernameLabel, loginJLabel;
     private JTextField usernameTextField;
-    private JLabel passwordLabel;
+    private JLabel passwordLabel, background;
     private JPasswordField passwordField;
     private JButton logButton, clearButton, backButton;
     private ImageIcon icon;
@@ -109,18 +110,21 @@ class LoginPane extends JFrame implements ActionListener{
 
         db = new Database();
 
-        c=getContentPane();
+        background = new JLabel(new ImageIcon("src/BackGroundImage/Cat.gif"));
+        background.setLayout(new GridBagLayout());
+        setContentPane(background);
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(width,height);
-        setMinimumSize(new Dimension(900,600));
+        setSize(width, height);
+        setMinimumSize(new Dimension(900, 600));
         setTitle("Login Form");
+        setLayout(new GridBagLayout());
         setVisible(true);
-        icon =new ImageIcon("src/Icon.jpg");
+        icon = new ImageIcon("src/Icon.jpg");
         this.setIconImage(icon.getImage());
 
         loginJLabel = new JLabel("Login Form");
         loginJLabel.setFont(loginJLabel.getFont().deriveFont(Font.BOLD, 22));
-        JPanel panel = new JPanel(new GridBagLayout());
 
         usernameLabel = new JLabel("Email:");
         usernameTextField = new JTextField(20);
@@ -128,17 +132,17 @@ class LoginPane extends JFrame implements ActionListener{
         passwordField = new JPasswordField(20);
         passwordField.setEchoChar('*');
 
-        logButton =new JButton("Login");
+        logButton = new JButton("Login");
         logButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         logButton.setBackground(new Color(0xFD7F00));
         logButton.addActionListener(this);
 
-        clearButton =new JButton("Clear");
+        clearButton = new JButton("Clear");
         clearButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         clearButton.setBackground(new Color(0xFC9125));
         clearButton.addActionListener(this);
 
-        backButton =new JButton("Back");
+        backButton = new JButton("Back");
         backButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         backButton.setBackground(new Color(0xFDA852));
         backButton.addActionListener(this);
@@ -147,55 +151,54 @@ class LoginPane extends JFrame implements ActionListener{
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(5, 5, 5, 5);
 
-
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.CENTER;
-        panel.add(loginJLabel, gbc);
-        
+        add(loginJLabel, gbc);
+
         gbc.gridx = 0;
         gbc.gridy = 1;
-        gbc.gridwidth=1;
-        panel.add(usernameLabel, gbc);
+        gbc.gridwidth = 1;
+        add(usernameLabel, gbc);
         gbc.gridx = 1;
-        panel.add(usernameTextField, gbc);
+        add(usernameTextField, gbc);
         gbc.gridx = 0;
         gbc.gridy = 2;
-        panel.add(passwordLabel, gbc);
+        add(passwordLabel, gbc);
         gbc.gridx = 1;
-        panel.add(passwordField, gbc);
-        gbc.gridx=0;
-        gbc.gridy=3;
+        add(passwordField, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 3;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.CENTER;
-        panel.add(logButton, gbc);
-        gbc.gridy=4;
-        panel.add(clearButton, gbc);
-        gbc.gridy=5;
-        panel.add(backButton, gbc);
+        add(logButton, gbc);
+        gbc.gridy = 4;
+        add(clearButton, gbc);
+        gbc.gridy = 5;
+        add(backButton, gbc);
 
-        c.add(panel, BorderLayout.CENTER);
         setLocationRelativeTo(null);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==logButton){
+        if (e.getSource() == logButton) {
 
             String username = usernameTextField.getText();
             String password = new String(passwordField.getPassword());
-            
+
             boolean isValidCredential = false;
 
             try {
                 var response = db.getConnection().createStatement().executeQuery(
-                        "SELECT true as isValid FROM Userinfo WHERE Email = '" + username + "' AND Password = '" + password + "'");
+                        "SELECT true as isValid FROM Userinfo WHERE Email = '" + username + "' AND Password = '"
+                                + password + "'");
 
-            var hasResult = response.next();
+                var hasResult = response.next();
 
-            if (hasResult)
-                 isValidCredential = response.getBoolean("isValid");       
+                if (hasResult)
+                    isValidCredential = response.getBoolean("isValid");
             } catch (SQLException e1) {
                 e1.printStackTrace();
             }
@@ -205,25 +208,26 @@ class LoginPane extends JFrame implements ActionListener{
                 dispose();
                 new Book(getContentPane().getWidth(), getContentPane().getHeight());
             } else {
-                JOptionPane.showMessageDialog(null, "Invalid username or password. Please try again.", "Login Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Invalid username or password. Please try again.", "Login Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
-        }
-        else if(e.getSource()==clearButton){
+        } else if (e.getSource() == clearButton) {
             usernameTextField.setText("");
             passwordField.setText("");
-        }
-        else if (e.getSource()==backButton) {
+        } else if (e.getSource() == backButton) {
             getContentPane().removeAll();
-            getContentPane().add(new WelcomePage(getContentPane().getWidth(),getContentPane().getHeight()).getContentPane());
+            getContentPane()
+                    .add(new WelcomePage(getContentPane().getWidth(), getContentPane().getHeight()).getContentPane());
             getContentPane().revalidate();
             getContentPane().repaint();
         }
     }
 }
-class CreateAccountPage extends JFrame{
+
+class CreateAccountPage extends JFrame {
 
     private JPanel pane;
-    private JLabel name, pass, emailLabel, ageLabel, createAccountLabel, confirmPass ;
+    private JLabel name, pass, emailLabel, ageLabel, createAccountLabel, confirmPass;
     private JTextField username, emailField;
     private JPasswordField password, confirmPassword;
     private JSlider ageSlider;
@@ -238,7 +242,7 @@ class CreateAccountPage extends JFrame{
         setTitle("Create New Account");
         setSize(width, height);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        icon =new ImageIcon("src/Icon.jpg");
+        icon = new ImageIcon("src/Icon.jpg");
         this.setIconImage(icon.getImage());
 
         pane = new JPanel(new GridBagLayout());
@@ -337,30 +341,63 @@ class CreateAccountPage extends JFrame{
                 String password = new String(CreateAccountPage.this.password.getPassword());
                 String confirmPassword = new String(CreateAccountPage.this.confirmPassword.getPassword());
                 int age = ageSlider.getValue();
-                if(name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()){
-                    JOptionPane.showMessageDialog(null, "Please fill up all the fields", "Error", JOptionPane.ERROR_MESSAGE);
+
+                if (!isValidName(name)) {
+                    JOptionPane.showMessageDialog(null, "Invalid name", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
                 }
-                else if(!password.equals(confirmPassword)){
-                    JOptionPane.showMessageDialog(null, "Password and Confirm Password doesn't match", "Error", JOptionPane.ERROR_MESSAGE);
+
+                if (!isValidPassword(password)) {
+                    JOptionPane.showMessageDialog(null, "Use minimun 8 characters, with uppercase,\nlowercase number and special character", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
                 }
-                else{
+                if (!isValidEmail(email)) {
+                    JOptionPane.showMessageDialog(null, "Invalid email address", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please fill up all the fields", "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                } else if (!password.equals(confirmPassword)) {
+                    JOptionPane.showMessageDialog(null, "Password and Confirm Password don't match", "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                } else {
                     try {
-                        db.getConnection().createStatement().executeUpdate("INSERT INTO Userinfo VALUES ('"+email+"','"+password+"','"+name+"',"+age+")");
-                        JOptionPane.showMessageDialog(null, "Account Created Successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+                        db.getConnection().createStatement().executeUpdate("INSERT INTO Userinfo VALUES ('" + email
+                                + "','" + password + "','" + name + "'," + age + ")");
+                        JOptionPane.showMessageDialog(null, "Account Created Successfully", "Success",
+                                JOptionPane.INFORMATION_MESSAGE);
                         dispose();
-                        new LoginPane(getContentPane().getWidth(),getContentPane().getHeight());
+                        new LoginPane(getContentPane().getWidth(), getContentPane().getHeight());
                     } catch (SQLException e1) {
                         JOptionPane.showMessageDialog(null, "Email already exists", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             }
         });
+
+
         exsistAccount.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                new LoginPane(getContentPane().getWidth(),getContentPane().getHeight());
+                new LoginPane(getContentPane().getWidth(), getContentPane().getHeight());
             }
         });
+    }
+
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        return email.matches(emailRegex);
+    }
+
+    private boolean isValidName(String name) {
+        return name.matches("^[a-zA-Z\\s]+$");
+    }
+
+    private boolean isValidPassword(String password) {
+        String passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=]).{8,32}$";
+        return password.matches(passwordRegex);
     }
 }

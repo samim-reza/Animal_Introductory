@@ -5,15 +5,43 @@ import javax.swing.ImageIcon;
 import java.awt.Container;
 import java.awt.BorderLayout;
 
-class Animal extends JFrame {
+interface walk {
+    void walk();
+}
+
+interface swim {
+    void swim();
+}
+
+interface fly {
+    void fly();
+}
+
+class StringException extends Exception {
+    StringException() {
+    super("Invalid data type");
+    }
+}
+
+abstract class Animal extends JFrame {
     protected Container c;
     protected JLabel eatLabel;
     protected ImageIcon eatImg;
     protected JPanel mainPanel;
+    protected String birth;
     private String name;
 
     Animal(String name, String eatImg) {
-        this.name = name;
+
+        try{
+            if(!isValidString(name)){
+                throw new StringException();
+            }
+            this.name = name;
+        }catch(StringException e){
+            System.out.println(e.getMessage());
+        }
+
         c = getContentPane();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,9 +67,16 @@ class Animal extends JFrame {
 
         c.add(mainPanel);
     }
+
+
+    protected boolean isValidString(String name) {
+        return name.matches("^[a-zA-Z\\s]+$");
+    }
+
+    abstract public void givingBirth(String birth);
 }
 
-class Walkable extends Animal {
+class Walkable extends Animal implements walk{
 
     protected JLabel walkLabel;
     protected ImageIcon walkImg;
@@ -55,6 +90,23 @@ class Walkable extends Animal {
         this.walkLabel.setBounds(0, 0, 400, 350);
     }
 
+    Walkable(String name, String eatImg, String walkImg , String birth) {
+
+        super(name, eatImg);
+
+        try{
+            if(!isValidString(birth)){
+                throw new StringException();
+            }
+            this.birth=birth;
+        }catch(StringException e){
+            System.out.println(e.getMessage());
+        }
+        this.walkImg = new ImageIcon(walkImg);
+        this.walkLabel = new JLabel(this.walkImg);
+        this.walkLabel.setBounds(0, 0, 400, 350);
+    }
+
     public void walk() {
         
         mainPanel = new JPanel(new BorderLayout());
@@ -62,9 +114,21 @@ class Walkable extends Animal {
 
         c.add(mainPanel);
     }
+
+    public void givingBirth(String birth){
+
+        try{
+            if(!isValidString(birth)){
+                throw new StringException();
+            }
+            this.birth=birth;
+        }catch(StringException e){
+            System.out.println(e.getMessage());
+        }
+    }
 }
 
-class Swimmable extends Animal {
+class Swimmable extends Animal implements swim{
 
     protected JLabel swimLabel;
     protected ImageIcon swimImg;
@@ -77,15 +141,43 @@ class Swimmable extends Animal {
         this.swimLabel.setBounds(0, 0, 400, 350);
     }
 
+    Swimmable(String name, String eatImg, String swimImg, String birth) {
+        super(name, eatImg);
+
+        this.swimImg = new ImageIcon(swimImg);
+        this.swimLabel = new JLabel(this.swimImg);
+        this.swimLabel.setBounds(0, 0, 400, 350);
+        try{
+            if(!isValidString(birth)){
+                throw new StringException();
+            }
+            this.birth=birth;
+        }catch(StringException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
     public void swim() {
         mainPanel = new JPanel(new BorderLayout());
         mainPanel.add(swimLabel, BorderLayout.CENTER);
 
         c.add(mainPanel);
     }
+
+    public void givingBirth(String birth){
+
+        try{
+            if(!isValidString(birth)){
+                throw new StringException();
+            }
+            this.birth=birth;
+        }catch(StringException e){
+            System.out.println(e.getMessage());
+        }
+    }
 }
 
-class Flyable extends Animal {
+class Flyable extends Animal implements fly{
 
     protected JLabel flyLabel;
     protected ImageIcon flyImg;
@@ -98,11 +190,39 @@ class Flyable extends Animal {
         this.flyLabel.setBounds(0, 0, 400, 350);
     }
 
+    Flyable(String name, String eatImg, String flyImg, String birth) {
+        super(name, eatImg);
+
+        this.flyImg = new ImageIcon(flyImg);
+        this.flyLabel = new JLabel(this.flyImg);
+        this.flyLabel.setBounds(0, 0, 400, 350);
+        try{
+            if(!isValidString(birth)){
+                throw new StringException();
+            }
+            this.birth=birth;
+        }catch(StringException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
     public void fly() {
         mainPanel = new JPanel(new BorderLayout());
         mainPanel.add(flyLabel, BorderLayout.CENTER);
 
         c.add(mainPanel);
+    }
+
+    public void givingBirth(String birth){
+
+        try{
+            if(!isValidString(birth)){
+                throw new StringException();
+            }
+            this.birth=birth;
+        }catch(StringException e){
+            System.out.println(e.getMessage());
+        }
     }
 }
 
